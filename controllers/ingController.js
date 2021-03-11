@@ -52,7 +52,7 @@ controller.save = (req, res) => {
 controller.backup = (req, res) => {
   req.getConnection((err, conn) => {
     conn.query(
-      'INSERT INTO backup (idingreso , quincena , valor , razon,signo) SELECT * FROM ingresos',
+      'INSERT INTO backup (idingreso, quincena, valor, razon, signo, done) SELECT * FROM ingresos',
       [],
       (err, rows) => {}
     )
