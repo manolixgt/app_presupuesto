@@ -57,7 +57,7 @@ controller.backup = (req, res) => {
       (err, rows) => {}
     )
 
-    conn.query('TRUNCATE TABLE ingresos', (err, deel) => {
+    conn.query('DELETE FROM ingresos', (err, deel) => {
       if (!err) {
         res.redirect('/')
       }
