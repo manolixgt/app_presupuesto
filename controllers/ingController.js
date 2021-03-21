@@ -49,19 +49,22 @@ controller.save = (req, res) => {
   })
 }
 
-controller.backup = (req, res) => {
+controller.backup = (req, res, next) => {
   req.getConnection((err, conn) => {
     conn.query(
       'INSERT INTO backup (idingreso, quincena, valor, razon, signo, done) SELECT * FROM ingresos',
-      [],
-      (err, rows) => {}
-    )
-
-    conn.query('DELETE FROM ingresos', (err, deel) => {
-      if (!err) {
-        res.redirect('/')
+      (err, rows) => {
+        if (err) {
+          next(err)
+        } else {
+          conn.query('DELETE FROM ingresos', (err, dele) => {
+            if (!err) {
+              res.redirect('/')
+            }
+          })
+        }
       }
-    })
+    )
   })
 }
 

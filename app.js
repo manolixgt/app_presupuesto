@@ -53,11 +53,16 @@ let optionstatic = {
   index: false, //to disable directory indexing
   maxAge: '7d',
   redirect: false,
-};
+}
 
 // static files
 
 app.use(express.static(path.join(__dirname, 'public')))
+
+//error handler
+app.use(function (err, req, res, next) {
+  return res.status(500).json({ error: err.toString() })
+})
 
 // starting the server
 app.listen(app.get('port'), () => {})
